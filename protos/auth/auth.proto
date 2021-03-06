@@ -1,0 +1,19 @@
+syntax = "proto3";
+
+package auth;
+option go_package="github.com/IronSavior/chat-grpc/authpb";
+
+import "google/protobuf/empty.proto";
+
+service Auth {
+  rpc Login(LoginRequest) returns (LoginResponse);
+  rpc Logout(google.protobuf.Empty) returns (google.protobuf.Empty);
+}
+
+message LoginRequest {
+  string user_name = 1;
+}
+
+message LoginResponse {
+  string token = 1;
+}

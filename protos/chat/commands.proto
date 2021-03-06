@@ -1,0 +1,31 @@
+syntax = "proto3";
+
+package commands;
+option go_package="github.com/IronSavior/chat-grpc/chatpb/commands";
+
+
+// User wants to create a new chat
+message Create {
+  string chat_name = 1;
+}
+
+// User wants to destroy an existing chat
+message Destroy {
+  string chat_name = 1;
+}
+
+// User wants to join a chat
+message Join {
+  string chat_name = 1;
+}
+
+// User wants to leave a chat
+message Unjoin {
+  uint32 code = 1;       // google.golang.org/grpc/codes
+  string message = 2;
+}
+
+// User wants to send a message to a chat
+message Say {
+  string message = 1;
+}

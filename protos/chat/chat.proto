@@ -1,0 +1,22 @@
+syntax = "proto3";
+
+package chat;
+option go_package="github.com/IronSavior/chat-grpc/chatpb";
+
+import "protos/chat/commands.proto";
+import "protos/chat/events.proto";
+import "google/protobuf/any.proto";
+
+service Chat {
+  rpc Create(commands.Create) returns (events.Created);
+  rpc Destroy(commands.Destroy) returns (events.Destroyed);
+  rpc Stream(stream Command) returns (stream Event);
+}
+
+message Command {
+  google.protobuf.Any intent = 1;
+}
+
+message Event {
+  google.protobuf.Any detail = 2;
+}

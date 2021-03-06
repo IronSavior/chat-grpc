@@ -1,0 +1,49 @@
+syntax = "proto3";
+
+package events;
+option go_package="github.com/IronSavior/chat-grpc/chatpb/events";
+
+import "google/protobuf/timestamp.proto";
+import "google/protobuf/any.proto";
+
+// Chat was created
+message Created {
+  google.protobuf.Timestamp time = 1;
+  string chat_name = 2;
+}
+
+// Chat was destroyed
+message Destroyed {
+  google.protobuf.Timestamp time = 1;
+  string chat_name = 2;
+}
+
+// A message was sent to a chat
+message Said {
+  google.protobuf.Timestamp time = 1;
+  string user_name = 2;
+  string message = 3;
+}
+
+// A user has joined a chat
+message Joined {
+  google.protobuf.Timestamp time = 1;
+  string user_name = 2;
+}
+
+// A user has left a chat
+message Unjoined {
+  google.protobuf.Timestamp time = 1;
+  string user_name = 2;
+  uint32 code = 3;       // google.golang.org/grpc/codes
+  string message = 4;
+}
+
+// A user's command was rejected
+message Rejected {
+  google.protobuf.Timestamp time = 1;
+  uint32 code = 2;       // google.golang.org/grpc/codes
+  string message = 3;
+
+  google.protobuf.Any command = 4; // Copy of command which has been rejected, optional
+}
